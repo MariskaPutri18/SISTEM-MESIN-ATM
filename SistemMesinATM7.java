@@ -4,7 +4,7 @@ import java.util.Random;
 public class SistemMesinATM7 {
 
     public static class Account {  
-        int saldoAwal, coinAwal, saldo; 
+        int saldoAwal, coinAwal; 
         int pin, nomorRekening;
         String masalahLaporan;
 
