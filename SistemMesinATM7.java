@@ -4,28 +4,35 @@ import java.util.Random;
 public class SistemMesinATM7 {
 
     public static class Account {  
-        int saldoAwal; 
+
+        int saldoAwal, coinAwal, saldo; 
         int pin, nomorRekening;
         String masalahLaporan;
 
-        public Account(int pin, int nomorRekening, int saldoAwal){
-            this.pin = pin;
-            this.nomorRekening = nomorRekening;
+        public Account(int pin, int nomorRekening, int saldoAwal, int coinAwal){
+            this.pin = pin; 
+            this.nomorRekening = nomorRekening; //penggunaan this pada bagian ini digunakan untuk membedakan atribut kelas dan parameter pada Account 
             this.saldoAwal = saldoAwal;
+            this.coinAwal = coinAwal;
+            
         }
-        public void reportProblem(int tanggal, String masalah) {
+        public void reportProblem(int tanggal, String masalah) {  // fungsi baru pada bagian ini dipanggil pada bagian report masalah untuk mencetak 
             masalahLaporan = masalah;
         }
-    }
+        }
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
 
+
+        // Array accounts digunakan untuk menyimpan data berupa pin, nomor rekening dan saldo awal. data ini akan digunakan untuk inputan agar pengguna bisa masuk ke dalam menu. data ini juga digunakan pada transkasi - transaksi pada menu.
         Account[] accounts = {
-            new Account(223344, 632453, 4000000),
-            new Account(556677, 632672, 2300000),
-            new Account(889911, 632649, 1000000)
+            new Account(223344, 632453, 4000000, 5000),
+            new Account(556677, 632672, 2300000, 5000),
+            new Account(889911, 632649, 1000000,5000)
+
         };
 
         System.out.print("Masukan PIN            : ");
@@ -101,102 +108,45 @@ public class SistemMesinATM7 {
                             System.out.println("Pilih Nominal Penarikan(1/2/3/4/5/6/7) : ");
                             int jumlahTarikan = sc.nextInt();
                             int kodeTransaksi = random.nextInt(1000000);
-                            int inputPin = sc.nextInt();
+
+                            int totalPenarikan = 0;
+                            
                             switch (jumlahTarikan){
                                 case 1:
-                                currentAccount.saldoAwal -= 10000;
-                                jumlahTdkTersedia = false;
-                                System.out.print("Masukkan PIN: ");
-                                inputPin = sc.nextInt();
-                                if (inputPin == currentAccount.pin) {
-                                System.out.println("Kode : "+ kodeTransaksi);
-                                System.out.println("Penarikan berhasil. Saldo Anda sekarang: " + currentAccount.saldoAwal);
-                                break; 
-                                }else {
-                                    System.out.println("PIN Tidak Sesuai, Transaksi Dibatalkan");
-                                }
+                                totalPenarikan = 10000;
                                 break;
                                 case 2:
-                                currentAccount.saldoAwal -= 20000;
-                                jumlahTdkTersedia = false;
-                                System.out.print("Masukkan PIN: ");
-                                inputPin = sc.nextInt();
-                                if (inputPin == currentAccount.pin) {
-                                System.out.println("Kode : "+ kodeTransaksi);
-                                System.out.println("Penarikan berhasil. Saldo Anda sekarang: " + currentAccount.saldoAwal);
-                                break; 
-                                }else {
-                                    System.out.println("PIN Tidak Sesuai, Transaksi Dibatalkan");
-                                }
+                                totalPenarikan = 20000;
                                 break;
                                 case 3:
-                                currentAccount.saldoAwal -= 50000;
-                                jumlahTdkTersedia = false;
-                                System.out.print("Masukkan PIN: ");
-                                inputPin = sc.nextInt();
-                                if (inputPin == currentAccount.pin) {
-                                System.out.println("Kode : "+ kodeTransaksi);
-                                System.out.println("Penarikan berhasil. Saldo Anda sekarang: " + currentAccount.saldoAwal);
-                                break; 
-                                }else {
-                                    System.out.println("PIN Tidak Sesuai, Transaksi Dibatalkan");
-                                }
+                                totalPenarikan = 50000;
                                 break;
                                 case 4:
-                                currentAccount.saldoAwal -= 100000;
-                                jumlahTdkTersedia = false;
-                                System.out.print("Masukkan PIN: ");
-                                inputPin = sc.nextInt();
-                                if (inputPin == currentAccount.pin) {
-                                System.out.println("Kode : "+ kodeTransaksi);
-                                System.out.println("Penarikan berhasil. Saldo Anda sekarang: " + currentAccount.saldoAwal);
-                                break; 
-                                }else {
-                                    System.out.println("PIN Tidak Sesuai, Transaksi Dibatalkan");
+                                totalPenarikan = 100000;
                                 break;
-                                }
                                 case 5:
-                                currentAccount.saldoAwal -= 200000;
-                                jumlahTdkTersedia = false;
-                                System.out.print("Masukkan PIN: ");
-                                inputPin = sc.nextInt();
-                                if (inputPin == currentAccount.pin) {
-                                System.out.println("Kode : "+ kodeTransaksi);
-                                System.out.println("Penarikan berhasil. Saldo Anda sekarang: " + currentAccount.saldoAwal);
-                                break;
-                                }else {
-                                    System.out.println("PIN Tidak Sesuai, Transaksi Dibatalkan");
-                                }
+                                totalPenarikan = 200000;
                                 break;
                                 case 6:
-                                currentAccount.saldoAwal -= 500000;
-                                jumlahTdkTersedia = false;
-                                System.out.print("Masukkan PIN: ");
-                                inputPin = sc.nextInt();
-                                if (inputPin == currentAccount.pin) {
-                                System.out.println("Kode : "+ kodeTransaksi);
-                                System.out.println("Penarikan berhasil. Saldo Anda sekarang: " + currentAccount.saldoAwal);
-                                break; 
-                                }else {
-                                    System.out.println("PIN Tidak Sesuai, Transaksi Dibatalkan");
+                                totalPenarikan = 500000;
                                 break;
-                                }
                                 case 7:
-                                currentAccount.saldoAwal -= 1000000;
-                                jumlahTdkTersedia = false;
-                                System.out.print("Masukkan PIN: ");
-                                inputPin = sc.nextInt();
-                                if (inputPin == currentAccount.pin) {
-                                System.out.println("Kode : "+ kodeTransaksi);
-                                System.out.println("Penarikan berhasil. Saldo Anda sekarang: " + currentAccount.saldoAwal);
-                                break; 
-                                }else {
-                                    System.out.println("PIN Tidak Sesuai, Transaksi Dibatalkan");
+                                totalPenarikan = 1000000;
                                 break;
-                                }
                                 default:
                                 System.out.println("Nominal Penarikan Tidak tersedia!!");
+                                
                             }
+
+                             if (totalPenarikan <= currentAccount.saldoAwal) {
+                                    currentAccount.saldoAwal -= totalPenarikan;
+                                    System.out.println("Kode : " + kodeTransaksi);
+                                    System.out.println("Penarikan berhasil. Saldo Anda sekarang: " + currentAccount.saldoAwal);
+                                    jumlahTdkTersedia = false;
+                                } else {
+                                    System.out.println("Penarikan gagal. Saldo tidak mencukupi.");
+                                }
+                            
                         }
                     break;
                         
@@ -208,17 +158,20 @@ public class SistemMesinATM7 {
                         System.out.println("Kode : "+ kodeTransaksi);
                         System.out.println("Setoran berhasil, Saldo Anda sekarang: " + currentAccount.saldoAwal);
                         break;
+
+
                     case 4:
-                        System.out.print("Masukkan nomor rekening tujuan: ");
-                        sc.nextDouble();
-                        System.out.print("Nominal transfer: ");
-                        double transfer = sc.nextDouble();
-                        if (transfer <= currentAccount.saldoAwal){
-                        currentAccount.saldoAwal -= transfer;
-                        System.out.println("Transfer berhasil. Saldo Anda sekarang: " + currentAccount.saldoAwal);
-                        } else {
-                            System.out.println("Saldo Tidak mencukupi");
+                        boolean pilihanBank = true;
+                        while (pilihanBank) {
+                            System.out.println("Pilih Bank Tujuan ");
+                            System.out.println("1. BANK BRI");
+                            System.out.println("2. BANK BCA");
+                            System.out.println("3. BANK BNI");
+                            System.out.println("4. BANK MANDIRI");
+
+                            int bankTujuan = sc.nextInt();
                         }
+                   
                         break;
                     case 5:
                         System.out.println("===== Pengaduan Masalah =====");
@@ -259,6 +212,7 @@ public class SistemMesinATM7 {
                             System.out.println("Account not found");
                         }
                         break;
+
                     case 6:
                         System.out.println("Terima kasih telah menggunakan ATM. Sampai jumpa!");
                         System.exit(0);
