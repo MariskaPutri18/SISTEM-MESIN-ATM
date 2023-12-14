@@ -1,30 +1,33 @@
 import java.util.Scanner;
 import java.util.Random;
 
-public class SistemMesinATM7 {
+public class SistemATMc {
 
     public static class Account {  
+
         int saldoAwal, coinAwal, saldo; 
         int pin, nomorRekening;
         String masalahLaporan;
 
         public Account(int pin, int nomorRekening, int saldoAwal, int coinAwal){
             this.pin = pin; 
-            this.nomorRekening = nomorRekening;
+            this.nomorRekening = nomorRekening; //penggunaan this pada bagian ini digunakan untuk membedakan atribut kelas dan parameter pada Account 
             this.saldoAwal = saldoAwal;
-            this.coinAwal = coinAwal;      
+            this.coinAwal = coinAwal;
+            
         }
-
-        public void reportProblem(int tanggal, String masalah) {
+        public void reportProblem(int tanggal, String masalah) {  // fungsi baru pada bagian ini dipanggil pada bagian report masalah untuk mencetak 
             masalahLaporan = masalah;
         }
-    }
+        }
 
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
 
+
+        // Array accounts digunakan untuk menyimpan data berupa pin, nomor rekening dan saldo awal. data ini akan digunakan untuk inputan agar pengguna bisa masuk ke dalam menu. data ini juga digunakan pada transkasi - transaksi pada menu.
         Account[] accounts = {
             new Account(223344, 632453, 4000000, 5000),
             new Account(556677, 632672, 2300000, 5000),
@@ -69,7 +72,7 @@ public class SistemMesinATM7 {
                     case 2:
                     boolean jalurTidakTersedia=true;
                         while (jalurTidakTersedia){
-                            System.out.println("Jalur Tarik Tunai :");
+                            System.out.println("Jalur Tarik Tunai");
                             System.out.println("1.ATM ");
                             System.out.println("2.Alfamaret");
                             System.out.println("3.Indomaret");
@@ -102,9 +105,10 @@ public class SistemMesinATM7 {
                             System.out.println("5. Rp 200.000,00");
                             System.out.println("6. Rp 500.000,00");
                             System.out.println("7. Rp 1.000.000,00");
-                            System.out.print("Pilih Nominal Penarikan(1/2/3/4/5/6/7) : ");
+                            System.out.println("Pilih Nominal Penarikan(1/2/3/4/5/6/7) : ");
                             int jumlahTarikan = sc.nextInt();
                             int kodeTransaksi = random.nextInt(1000000);
+
                             int totalPenarikan = 0;
 
                             switch (jumlahTarikan){
@@ -134,14 +138,14 @@ public class SistemMesinATM7 {
 
                             }
 
-                            if (totalPenarikan <= currentAccount.saldoAwal) {
+                             if (totalPenarikan <= currentAccount.saldoAwal) {
                                     currentAccount.saldoAwal -= totalPenarikan;
                                     System.out.println("Kode : " + kodeTransaksi);
                                     System.out.println("Penarikan berhasil. Saldo Anda sekarang: " + currentAccount.saldoAwal);
                                     jumlahTdkTersedia = false;
-                            } else {
-                                System.out.println("Penarikan gagal. Saldo tidak mencukupi.");
-                            }
+                                } else {
+                                    System.out.println("Penarikan gagal. Saldo tidak mencukupi.");
+                                }
                         }
                     break;
                                     
@@ -154,68 +158,69 @@ public class SistemMesinATM7 {
                         System.out.println("Setoran berhasil, Saldo Anda sekarang: " + currentAccount.saldoAwal);
                         break;
 
+
                     case 4:
                         boolean pilihanBank = true;
                         while (pilihanBank) {
-                            System.out.println("Pilih Bank Tujuan :");
+                            System.out.println("Pilih Bank Tujuan ");
                             System.out.println("1. BANK BRI");
                             System.out.println("2. BANK BCA");
                             System.out.println("3. BANK BNI");
                             System.out.println("4. BANK MANDIRI");
-                            System.out.print("Pilih Bank Tujuan (1/2/3/4) : ");
+                            System.out.println("Pilih Bank Tujuan (1/2/3/4) : ");
                             int bankTujuan = sc.nextInt();
                             switch (bankTujuan){
                                 case 1:
                                 System.out.println("Tansfer ke Bank BRI");
-                                pilihanBank = false;
                                 break;
                                 case 2:
                                 System.out.println("Tansfer ke Bank BCA");
-                                pilihanBank = false;
                                 break;
                                 case 3:
                                 System.out.println("Tansfer ke Bank BNI");
-                                pilihanBank = false;
                                 break;
                                 case 4:
                                 System.out.println("Transfer ke Bank MANDIRI");
-                                pilihanBank = false;
                                 break;
                                 default:
                                 System.out.println("Pilih BANK yang tersedia : ");
                             }
+                        }
 
-                            System.out.print("Masukkan nomor rekening tujuan: ");
+                        System.out.print("Masukkan nomor rekening tujuan: ");
                             sc.nextDouble();
                             System.out.print("Nominal transfer: ");
                             double transfer = sc.nextDouble();
-                            if (transfer <= currentAccount.saldoAwal) {
-                                double biayaAdmin = 6500; 
-                                double totalTransfer = transfer + biayaAdmin;
-                           
-                                if (currentAccount.coinAwal > 0) {
-                                    System.out.println("Anda memiliki " + currentAccount.coinAwal + " coin.");
-                                    System.out.print("Ingin menggunakan coin untuk mengurangi biaya admin? (y/n): ");
-                                    char pakaiCoin = sc.next().charAt(0);
-                                    if (pakaiCoin == 'y' || pakaiCoin == 'Y') {
-                                        int coinDigunakan = Math.min(currentAccount.coinAwal, (int) (biayaAdmin / 1)); 
-                                        biayaAdmin -= coinDigunakan * 1;
-                                        currentAccount.coinAwal -= coinDigunakan;
-                                        double totalTfAdm = totalTransfer - coinDigunakan;
-                                        double sisa = currentAccount.saldoAwal - totalTfAdm;
-                                        System.out.println("Anda menggunakan " + coinDigunakan + " coin. Biaya admin terpotong.");
-                                        System.out.println("Sisa biaya admin: " + biayaAdmin);
-                                        System.out.println("Sisa coin: " + currentAccount.coinAwal);
-                                        System.out.println("Biaya transfer setelah potongan admin: " + totalTfAdm);
-                                        System.out.println("Transfer berhasil. Saldo Anda sekarang: " + sisa);
-                                        
-                                    }
+
+                            // Biaya admin transfer
+                            double biayaAdmin = 6500; 
+                            double totalTransfer = transfer + biayaAdmin;
+
+                            // Menggunakan coin untuk mengurangi biaya admin
+                            if (currentAccount.coinAwal > 0) {
+                                System.out.println("Anda memiliki " + currentAccount.coinAwal + " coin.");
+                                System.out.print("Ingin menggunakan coin untuk mengurangi biaya admin? (y/n): ");
+                                char pakaiCoin = sc.next().charAt(0);
+                                if (pakaiCoin == 'y' || pakaiCoin == 'Y') {
+                                    int coinDigunakan = Math.min(currentAccount.coinAwal, (int) (biayaAdmin / 1)); 
+                                    biayaAdmin -= coinDigunakan * 1;
+                                    currentAccount.coinAwal -= coinDigunakan;
+                                    System.out.println("Anda menggunakan " + coinDigunakan + " coin. Biaya admin terpotong.");
                                 }
+                            }
+
+                            if (transfer <= currentAccount.saldoAwal) {
+                                currentAccount.saldoAwal -= transfer;
+                                double sisaSaldo = currentAccount.saldoAwal; // Sisa saldo setelah transfer
+                                System.out.println("Transfer berhasil. Saldo Anda sekarang: " + sisaSaldo);
                             } else {
                                 System.out.println("Saldo Tidak mencukupi");
                             }
-                        }
-                        break;
+
+                            System.out.println("Sisa biaya admin: " + biayaAdmin);
+                            System.out.println("Sisa coin: " + currentAccount.coinAwal);
+                            System.out.println("Biaya transfer setelah potongan admin: " + totalTransfer);
+                            break;
                     case 5:
                         System.out.println("===== Pengaduan Masalah =====");
                         
@@ -257,7 +262,7 @@ public class SistemMesinATM7 {
                         break;
 
                     case 6:
-                        System.out.println("Terima kasih telah menggunakan BANK QU. Sampai jumpa!");
+                        System.out.println("Terima kasih telah menggunakan ATM. Sampai jumpa!");
                         System.exit(0);
                     default:
                         System.out.println("Pilihan tidak valid. Silakan pilih menu yang tersedia.");
