@@ -146,16 +146,9 @@ public class SistemMesinATM7 {
                                 } else {
                                     System.out.println("Penarikan gagal. Saldo tidak mencukupi.");
                                 }
-
                         }
                     break;
-
-
-                        System.out.println("Kode : "+ kodeTransaksi);
-                        System.out.println("Setoran berhasil, Saldo Anda sekarang: " + currentAccount.saldoAwal);
-                        break;
-                            
-                            
+                                    
                     case 3:
                         int kodeTransaksi = random.nextInt(1000000);
                         System.out.print("Masukkan jumlah setoran: ");
@@ -190,7 +183,7 @@ public class SistemMesinATM7 {
                                 System.out.println("Transfer ke Bank MANDIRI");
                                 break;
                                 default:
-                                System.out.println("Pilih jalur penarikan yang tersedia!!");
+                                System.out.println("Pilih BANK yang tersedia : ");
                             }
                         }
 
