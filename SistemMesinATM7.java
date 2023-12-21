@@ -21,11 +21,9 @@ public class SistemMesinATM7 {
         }
         }
 
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
-
 
         // Array accounts digunakan untuk menyimpan data berupa pin, nomor rekening dan saldo awal. data ini akan digunakan untuk inputan agar pengguna bisa masuk ke dalam menu. data ini juga digunakan pada transkasi - transaksi pada menu.
         Account[] accounts = {
@@ -147,15 +145,10 @@ public class SistemMesinATM7 {
                                     System.out.println("Penarikan gagal. Saldo tidak mencukupi.");
                                 }
 
-                        }
-                    break;
-
-
-                        System.out.println("Kode : "+ kodeTransaksi);
-                        System.out.println("Setoran berhasil, Saldo Anda sekarang: " + currentAccount.saldoAwal);
+                            }
+                                      
                         break;
-                            
-                            
+                                 
                     case 3:
                         int kodeTransaksi = random.nextInt(1000000);
                         System.out.print("Masukkan jumlah setoran: ");
@@ -164,7 +157,6 @@ public class SistemMesinATM7 {
                         System.out.println("Kode : "+ kodeTransaksi);
                         System.out.println("Setoran berhasil, Saldo Anda sekarang: " + currentAccount.saldoAwal);
                         break;
-
 
                     case 4:
                         boolean pilihanBank = true;
@@ -190,11 +182,9 @@ public class SistemMesinATM7 {
                                 System.out.println("Transfer ke Bank MANDIRI");
                                 break;
                                 default:
-                                System.out.println("Pilih jalur penarikan yang tersedia!!");
+                                System.out.println("Pilih BANK Tujuan Tersedia!!!");
                             }
-                        }
-
-                        System.out.print("Masukkan nomor rekening tujuan: ");
+                            System.out.print("Masukkan nomor rekening tujuan: ");
                             sc.nextDouble();
                             System.out.print("Nominal transfer: ");
                             double transfer = sc.nextDouble();
@@ -202,6 +192,7 @@ public class SistemMesinATM7 {
                             // Biaya admin transfer
                             double biayaAdmin = 6500; 
                             double totalTransfer = transfer + biayaAdmin;
+                       
 
                             // Menggunakan coin untuk mengurangi biaya admin
                             if (currentAccount.coinAwal > 0) {
@@ -213,20 +204,11 @@ public class SistemMesinATM7 {
                                     biayaAdmin -= coinDigunakan * 1;
                                     currentAccount.coinAwal -= coinDigunakan;
                                     System.out.println("Anda menggunakan " + coinDigunakan + " coin. Biaya admin terpotong.");
+                                    
                                 }
                             }
-
-                            if (transfer <= currentAccount.saldoAwal) {
-                                currentAccount.saldoAwal -= transfer;
-                                double sisaSaldo = currentAccount.saldoAwal; // Sisa saldo setelah transfer
-                                System.out.println("Transfer berhasil. Saldo Anda sekarang: " + sisaSaldo);
-                            } else {
-                                System.out.println("Saldo Tidak mencukupi");
-                            }
-
-                            System.out.println("Sisa biaya admin: " + biayaAdmin);
-                            System.out.println("Sisa coin: " + currentAccount.coinAwal);
-                            System.out.println("Biaya transfer setelah potongan admin: " + totalTransfer);
+                            
+                        }
                             break;
                     case 5:
                         System.out.println("===== Pengaduan Masalah =====");
